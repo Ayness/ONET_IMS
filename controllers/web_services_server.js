@@ -607,7 +607,7 @@ server.route({
   handler: function(request, reply) {
     const adhid = request.params.adhid;
 
-    connection.query('SELECT A.nationalIDcard, A.firstName, A.lastName, I.type, I.internshipID, DATE_FORMAT(beginDate, "%d/%m/%Y") as beginDate, DATE_FORMAT(endDate, "%d/%m/%Y") as endDate, P.validation, P.payment FROM internship I, participation P, adherent A WHERE I.internshipID = P.internshipID and A.adhID = P.adhID and A.adhID = "' + adhid + '"',
+    connection.query('SELECT A.nationalIDcard, A.firstName, A.lastName, I.type, I.internshipID, DATE_FORMAT(beginDate, "%d/%m/%Y") as beginDate, DATE_FORMAT(endDate, "%d/%m/%Y") as endDate, P.validation, P.payment FROM internship I, participation P, adherent A WHERE I.internshipID = P.internshipID and A.adhID = P.adhID and A.adhID = "' + adhid + '" and DATE(endDate)>=CURDATE()',
       function(error, results, fields) {
         if (error) {
           reply(JSON.stringify(error));
