@@ -151,6 +151,7 @@
         <div id="cinAlert" class="alert alert-danger"> Completez votre profile, la photo de votre carte d'identité nationale est manquante </div>
         <% } %>
 
+
           <!--  Menu droit -->
 
           <ul id="slide-out" class="side-nav" style="transform: translateX(0px);">
@@ -333,8 +334,8 @@
                 circle.classList.add('circle');
                 var context = document.createElement("div");
                 context.classList.add('context');
-                var active = "Je ne suis pas Active";
-                if (paid == 1) active = "Je suis Active";
+                var active = "Non actif";
+                if (paid == 1) active = "actif";
                 object.appendChild(datea);
                 object.appendChild(circle);
                 object.appendChild(context);

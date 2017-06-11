@@ -168,23 +168,23 @@
                                             <div class="row">
                                                 <div class="input-field col s6">
                                                     <i class="material-icons prefix">account_circle</i>
-                                                    <input name="firstName" id="firstName" type="text" class="validate" required>
+                                                    <input name="firstName" id="firstName" minlength ="2" type="text" class="validate" required>
                                                     <label for="firstName">Nom</label>
                                                 </div>
                                                 <div class="input-field col s6">
-                                                    <input name="lastName" id="lastName" type="text" class="validate" required>
+                                                    <input name="lastName" id="lastName" minlength ="2" type="text" class="validate" required>
                                                     <label for="lastName">Prénom</label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="input-field col s6">
                                                     <i class="material-icons prefix">home</i>
-                                                    <input name="address" id="address" type="text" class="validate" required>
+                                                    <input name="address" id="address" type="text" class="validate" minlength ="5" required>
                                                     <label for="address">Adresse</label>
                                                 </div>
                                                 <div class="input-field col s6">
                                                     <i class="material-icons prefix">folder_shared</i>
-                                                    <input name="nationalIDcard" id="nationalIDcard" type="number" class="validate" maxlength="8" minlength="8" required>
+                                                    <input name="nationalIDcard" id="nationalIDcard" type="text"  maxlength="8" minlength="8" class="validate">
                                                     <label for="nationalIDcard">CIN</label>
                                                 </div>
                                             </div>
@@ -248,7 +248,7 @@
                                                 </div>
                                                 <div class="input-field col s12">
                                                     <i class="material-icons prefix">lock</i>
-                                                    <input name="password" id="password" type="password" class="validate">
+                                                    <input name="password" id="password" type="password" minlength="6" class="validate">
                                                     <label for="password">Mot de passe</label>
                                                     <div class="help-block with-errors"></div>
                                                 </div>
@@ -264,19 +264,10 @@
                                                     Date De Naissance :
                                                     <div class="input-field inline">
                                                         <i class="material-icons prefix">today</i>
-                                                        <input type="date" class="datepicker" id="birthDate" name="birthDate">
+                                                        <input type="date" class="datepicker" id="birthDate" name="birthDate" >
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- <div class="row">
-                                                <div class="file-field input-field">
-                                                    <input type="file">
-                                                    <div class="file-path-wrapper">
-                                                        <i class="material-icons prefix">cloud_upload</i>
-                                                        <input class="file-path validate" type="text" placeholder="Choisir l'image de votre CIN" name="cinfile" id="cinfile">
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                             <center> <a class="waves-effect waves-light btn" id="submitbtn">s'inscrire</a></center>
                                         </form>
                                     </div>
@@ -347,11 +338,16 @@
                             <script type="text/javascript">
 
                                 $(document).ready(function() {
-                                    $('.datepicker').pickadate({
-                                        format: 'yyyy-mm-dd',
-                                        selectMonths: true, // Creates a dropdown to control month
-                                        selectYears: 15 // Creates a dropdown of 15 years to control year
-                                    });
+                                  $('.datepicker').pickadate({
+                                    min: new Date(1940,1,1),
+                                    max: new Date(1999,1,1),
+                                    selectMonths: true, // Creates a dropdown to control month
+                                    selectYears: 100 // Creates a dropdown of 15 years to control year
+                                  })
+                                  $('#nationalIDcard').keypress(function(e){
+                                    return !isNaN(e.key);
+                                  });
+        
                                     $('select').material_select();
                                     $.ajax({
                                         url: "http://localhost:8081/locoffices",
@@ -376,7 +372,10 @@
                                     });
                                     $("#submitbtn").on("click", (e) => {
                                         if(typeof($("input[name='gender']:checked"). val())=="undefined" || $("#gov").val()==null || $("#office").val()==null)
-                                          Materialize.toast('Completez les champs nécessaires', 3000, 'red')
+                                          Materialize.toast('Completez les champs nécessaires', 3000, 'red');
+                                        console.log($("#birthDate").val());
+                                        if(Date.parse($("#birthDate").val())>Date.parse("1999-1-1"))
+                                          console.log("no");
                                         $("#registrationForm").submit();
                                     })
 
@@ -384,11 +383,11 @@
                                         rules: {
                                             firstName: {
                                                 required: true,
-                                                minlength: 5
+                                                minlength: 2
                                             },
                                             lastName: {
                                                 required: true,
-                                                minlength: 3
+                                                minlength: 2
                                             },
                                             email: {
                                                 required: true,
@@ -407,10 +406,6 @@
                                                 minlength: 8
                                             },
                                             tel: {
-                                                required: true,
-                                                minlength: 8
-                                            },
-                                            nationalIDcard: {
                                                 required: true,
                                                 minlength: 8
                                             },
@@ -447,23 +442,23 @@
                                             },
                                             password: {
                                                required :"Enterez un mot de passe",
-                                               minlength :"Le mot de passe doit etre 6 charachteres au minimum."
+                                               minlength :"Le mot de passe doit être 6 charachteres au minimum."
                                             },
                                             password2: {
                                                 required: "Repetez le mot de passe",
                                                 equalTo: "Les mots de passes ne sont pas dentiques"
                                             },
                                             address: {
-                                                required: "Entrez votre addresse",
-                                                minlength: "L'addresse doit etre 5 charachteres au minimum"
+                                                required: "Entrez votre adresse",
+                                                minlength: "L'adresse doit être 5 charachteres au minimum"
                                             },
                                             nationalIDcard: {
                                                 required: "Entrez votre CIN",
-                                                minlength: "Le CIN doit etre 8 charachteres au minimum"
+                                                minlength: "Le CIN doit être 8 charachteres"
                                             },
                                             tel: {
                                                 required: "Entrez votre tel",
-                                                minlength: "Le tel doit etre 8 charachteres au minimum"
+                                                minlength: "Le tel doit être 8 charachteres"
                                             },
                                             gender: {
                                                 required: "Choisir votre sexe",

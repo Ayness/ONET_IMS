@@ -73,12 +73,12 @@ module.exports = function(passport, connection) {
           // console.log(email);
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            connection.query("select * from adherent where email = '" + email + "'", function(err, rows) {
+            connection.query("select * from adherent where email = '" + email + "' or nationalIDcard = '"+ req.body.nationalIDcard+"'", function(err, rows) {
                 // console.log(rows);
                 if (err)
                     return done(err);
                 if (rows.length) {
-                    return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                    return done(null, false, req.flash('signupMessage', 'Votre email ou numero CIN existe déja.'));
                 } else {
                     // if there is no user with that email
                     if(req.body.cinfile) console.log(cinfile);
