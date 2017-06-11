@@ -322,7 +322,7 @@
                         </script>
                         <%}%>
 
-                            <!-- <script type="text/javascript">if ('ontouchstart' in document.documentElement) document.write("<script src='https://rawgit.com/Ayness/Onet/master/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");</script> -->
+
                             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                             <script src="https://rawgit.com/Ayness/Onet/master/js/jquery-ui.custom.min.js"></script>
                             <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.ui.touch-punch.min.js"></script>
@@ -339,15 +339,16 @@
 
                                 $(document).ready(function() {
                                   $('.datepicker').pickadate({
+                                    format: 'yyyy-mm-dd',
                                     min: new Date(1940,1,1),
-                                    max: new Date(1999,1,1),
+                                    max: new Date(1999,12,31),
                                     selectMonths: true, // Creates a dropdown to control month
                                     selectYears: 100 // Creates a dropdown of 15 years to control year
                                   })
                                   $('#nationalIDcard').keypress(function(e){
                                     return !isNaN(e.key);
                                   });
-        
+
                                     $('select').material_select();
                                     $.ajax({
                                         url: "http://localhost:8081/locoffices",
@@ -477,12 +478,6 @@
                                         errorClass: 'invalid',
                                         errorPlacement: function(error, element) {
                                             element.next("label").attr("data-error", error.contents().text());
-                                            // var placement = $(element).data('error');
-                                            // if (placement) {
-                                            //     $(placement).append(error)
-                                            // } else {
-                                            //     error.insertAfter(element);
-                                            // }
                                         }
                                     });
                                 });

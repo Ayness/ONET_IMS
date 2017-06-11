@@ -352,6 +352,17 @@
                 contentdiv.appendChild(object);
                 $('#uploadForm').on("submit", (e) => {
                   e.preventDefault();
+                  var filename = $("#cinfile").val();
+                  // Use a regular expression to trim everything before final dot
+                  var extension = filename.replace(/^.*\./, '');
+                  if (extension == filename)  extension = '';
+                  else extension = extension.toLowerCase();
+                  if(extension!='png'&&extension!='jpg'&&extension!='jpeg'){
+                    Materialize.toast('<span>Choisir une image!</span>', 5000);
+                    $("#uploadForm").trigger("reset");
+                    return;
+                  }
+                  e.preventDefault();
                   $('#uploadForm').ajaxSubmit({
                     error: function(xhr) {
                       console.log(xhr.status);
@@ -360,7 +371,7 @@
                     success: function(response) {
                       $('#uploadForm').fadeOut();
                       $('#cinAlert').fadeOut();
-                      var cinImg = "<img src='http://localhost:8000/cin/<%= user.adhID %><%= user.cinExt %>' height='285' width='450'>";
+                      var cinImg = "<img src='http://localhost:8000/cin/<%= user.adhID %>."+extension+"'  height='285' width='450'>";
                       $(cinImg).hide().appendTo("#cinimg").fadeIn(1000);
                       Materialize.toast('<span>Votre CIN a été mise à jour!</span>', 5000);
                       <% user.hasCin = 1 %>
