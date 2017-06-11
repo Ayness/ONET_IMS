@@ -175,7 +175,9 @@
               <div id="cinAlert" class = "alert alert-danger"> Completez votre profile, la photo de votre carte d'identité nationale est manquante </div>
             <% } %>
 
-
+            <% if(user.legitimate == 0){ %>
+              <div id="legitAlert" class="alert alert-danger"> Aucun admin n'a encore vous accépté, Vous pouvez seulement consulter les nouveauté et évènements. </div>
+              <% } %>
             <!--  Menu droit -->
 
             <ul id="slide-out" class="side-nav" style="transform: translateX(0px);">
