@@ -383,7 +383,7 @@ server.route({
     var type = Number(request.params.type) + 1;
     console.log("type");
     console.log(type);
-    connection.query('SELECT internshipID,I.address,type,price,type,DATE_FORMAT(beginDate, "%d/%m/%Y") as beginDate,DATE_FORMAT(endDate, "%d/%m/%Y") as endDate,DATE_FORMAT(timestamp, "%d-%m-%Y %h:%m:%s") as ts,firstName,lastName FROM internship I,adherent A WHERE I.supervisorID = A.adhID and type <= "' + type + '" and DATE(beginDate)>=CURDATE() ORDER BY type ,timestamp DESC',
+    connection.query('SELECT internshipID,I.address,type,price,type,DATE_FORMAT(beginDate, "%d/%m/%Y") as beginDate,DATE_FORMAT(endDate, "%d/%m/%Y") as endDate,DATE_FORMAT(timestamp, "%d-%m-%Y %h:%m:%s") as ts,firstName,lastName FROM internship I,adherent A WHERE I.supervisorID = A.adhID and type <= "' + type + '" and DATE(beginDate)>=CURDATE()+7 ORDER BY type ,timestamp DESC',
       function(error, results, fields) {
         if (error) {
           reply(JSON.stringify(error));

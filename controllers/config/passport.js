@@ -92,9 +92,6 @@ module.exports = function(passport, connection) {
                     var governorate = req.body.governorate;
                     var tel = req.body.tel;
                     var salt = bcrypt.genSaltSync(10);
-                    // console.log("salt");
-                    // console.log(salt);
-                    // console.log();
                     var hashedPass = bcrypt.hashSync(password, salt);
                     var q = "INSERT INTO adherent (password, firstName, lastName, birthDate, email, address, locOfficeID, nationalIDcard, gender, governorate, tel, paid, legitimate, registration) VALUES ('" + hashedPass + "', '" + firstName + "','" + lastName + "', '" + birthDate + "','" + email + "', '" + address + "','" + locOfficeID + "', '" + nationalIDcard + "', '" + gender + "','" + governorate + "', '" + tel + "','0' ,'0', NOW());";
 
@@ -134,7 +131,7 @@ module.exports = function(passport, connection) {
                         rows[0]["type"]="admin";
                         return done(null, rows[0]);
                       }else //no admin no adherent
-                        return done(null, false, req.flash('loginMessage', 'Wrong password or email!'));
+                        return done(null, false, req.flash('loginMessage', "Votre email ou mot de pass n'est pas correcte!"));
                   });
                 }
                 else {
@@ -152,7 +149,7 @@ module.exports = function(passport, connection) {
                     });
                   }
                   else { //password incorrect
-                    return done(null, false, req.flash('loginMessage', 'Wrong password or email!'));
+                    return done(null, false, req.flash('loginMessage', "votre email ou mot de pass n'est pas correcte!"));
                   }
                 }
             });

@@ -287,7 +287,7 @@
                                 <input id="search" type="search" required>
                                 <label class="label-icon" for="search"><i class="material-icons">search</i>
                                 </label>
-                                <i class="material-icons">close</i>
+                                <i id="closeSearch"class="material-icons">close</i>
                             </div>
                         </form>
                     </div>
@@ -416,8 +416,8 @@
                                 })
                                 $('#b' + id).on('click', function(e) {
                                     swal({
-                                            title: "Are you sure?",
-                                            text: "You will not be able to recover this imaginary file!",
+                                            title: "Supprimer cet adherent?",
+                                            text: "Cet adherent sera supprimé d'une façon permanente",
                                             type: "warning",
                                             showCancelButton: true,
                                             confirmButtonColor: "#DD6B55",
@@ -446,6 +446,10 @@
                         }
 
                     });
+                    $("#closeSearch").on('click',(e)=>{
+                      $('#search').val("");
+                      $('#search').trigger('keyup');
+                    })
                     $('#search').keyup(function() {
 
                       if (this.value != "") {
@@ -522,7 +526,7 @@
                                             console.log(resultdata);
                                             swal(
                                                 'Terminé!',
-                                                'Cet Adhérent Est Valide!',
+                                                'Cet Adhérent Est accepté!',
                                                 'success'
                                             )
                                         }

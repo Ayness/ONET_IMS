@@ -306,6 +306,23 @@
                         type: "GET",
                         Accept: "application/json",
                         success: function(resultdata) {
+                          if (resultdata.length == 0) {
+                            var contentdiv = document.getElementById("contentInternship");
+                            var object = document.createElement("div");
+                            object.classList.add('object');
+                            var datea = document.createElement("div");
+                            datea.classList.add('date');
+                            var circle = document.createElement("div");
+                            circle.classList.add('circle');
+                            var context = document.createElement("div");
+                            context.classList.add('context');
+                            datea.innerHTML = "<br><b style='font-size:2em'>Oups!!!!<b>";
+                            context.innerHTML = "<b><h4><font color=#e33d31>  </font></b></h4><br /><div class='bandeau'><h1><center>Aucun historique n'est disponible</center></h1></br></br><center>";
+                            object.appendChild(datea);
+                            object.appendChild(circle);
+                            object.appendChild(context);
+                            contentdiv.appendChild(object);
+                          }
                             console.log(resultdata);
                             $.each(resultdata, function(k, v) {
 

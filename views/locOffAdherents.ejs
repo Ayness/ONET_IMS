@@ -294,7 +294,7 @@
                                 <input id="search" type="search" required>
                                 <label class="label-icon" for="search"><i class="material-icons">search</i>
                                 </label>
-                                <i class="material-icons">close</i>
+                                <i id="closeSearch" class="material-icons">close</i>
                             </div>
                         </form>
                     </div>
@@ -452,7 +452,10 @@
             <!-- inline scripts related to this page -->
             <script type="text/javascript">
                 jQuery(function($) {
-
+                  $("#closeSearch").on('click',(e)=>{
+                    $('#search').val("");
+                    $('#search').trigger('keyup');
+                  })
                     $('#search').keyup(function() {
 
                         if (this.value != "") {
