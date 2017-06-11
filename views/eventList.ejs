@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta charset="utf-8" />
+  <title>ONET</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/Ayness/Onet/master/images/ONET.png">
+  <meta name="description" content="overview &amp; stats" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Ayness/Onet/89298508/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Ayness/Onet/cb6f4cf5/font-awesome/4.2.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://rawgit.com/Ayness/Onet/master/css/form.css" />
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Ayness/Onet/89298508/fonts/fonts.googleapis.com.css" />
+  <link rel="stylesheet" href="https://rawgit.com/Ayness/Onet/master/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+  <link rel="stylesheet" href="https://rawgit.com/Ayness/Onet/master/css/materializeINES.css">
+  <link rel="stylesheet" href="https://rawgit.com/JeremyFagis/dropify/master/dist/css/dropify.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/taromero/swal-forms/master/swal-forms.css">
+  <link rel="stylesheet" href="https://rawgit.com/Ayness/Onet/master/css/sweet.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/ace-extra.min.js"></script>
+  <script src="https://rawgit.com/JeremyFagis/dropify/master/dist/js/dropify.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery-ui.custom.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.ui.touch-punch.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.easypiechart.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.sparkline.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.flot.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.flot.pie.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.flot.resize.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/ace-elements.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/ace.min.js"></script>
+  <script src="http://malsup.github.com/jquery.form.js"></script>
+  <script src="https://cdn.rawgit.com/taromero/swal-forms/master/swal-forms.js"></script>
+</head>
+<body class="no-skin">
+    <div id="navbar" class="navbar navbar-default">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('navbar', 'fixed')
+            } catch (e) {}
+        </script>
+        <div class="navbar-container" id="navbar-container">
+            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+                <span class="sr-only">Toggle sidebar</span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+            </button>
+
+            <div class="navbar-header pull-left">
+                <a href="/home" class="navbar-brand">
+                    <small>
+                            <img src="https://raw.githubusercontent.com/Ayness/Onet/master/images/ONET.png" width="30" height="30"/>
+                            ONET
+                    </small>
+                </a>
+            </div>
+
+            <div class="navbar-buttons navbar-header pull-right" role="navigation">
+                <ul class="nav ace-nav">
+
+                    </li>
+
+                    <li class="light-blue">
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                            <img class="nav-user-photo" src=https://raw.githubusercontent.com/Ayness/Onet/master/images/inconnu.png />
+
+                            <span class="user-info">
+                                            <h5> <%= user.firstName %> <%= user.lastName %></h5>
+                                                                         </span>
+
+                            <i class="ace-icon fa fa-caret-down"></i>
+                        </a>
+
+                        <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+
+                            <li>
+                                <a href="/home">
+                                    <i class="fa fa-home"></i> Home
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a href="/logout">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-container -->
+    </div>
+
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('main-container', 'fixed')
+            } catch (e) {}
+        </script>
+
+        <div id="sidebar" class="sidebar                  responsive">
+            <script type="text/javascript">
+                try {
+                    ace.settings.check('sidebar', 'fixed')
+                } catch (e) {}
+            </script>
+            <!-- houni -->
+            <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+                <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+                    <button class="btn btn-success">
+                        <a href="/stat1"><i class="fa fa-pie-chart" aria-hidden="true"></i>
+                        <!-- <i class="ace-icon fa fa-signal"></i> -->
+                    </button>
+
+                    <button class="btn btn-info">
+                        <a href="/info"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </button>
+
+                    <button class="btn btn-warning">
+                        <a href="/location"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                    </button>
+                    <button class="btn btn-info">
+                        <a href="#" data-activates="slide-out" class="button-collapse"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                    </button>
+                </div>
+
+            </div>
+            <!-- /.sidebar-shortcuts -->
+
+
+            <!--  Menu droit -->
+
+            <ul id="slide-out" class="side-nav" style="transform: translateX(0px);">
+                <li>
+                    <div class="userView">
+                        <div class="background">
+                            <img src="https://raw.githubusercontent.com/Ayness/Onet/master/images/ONET1.jpg" width="450" height="200">
+                        </div>
+                        <a href="#!user"><img class="circle" src="https://raw.githubusercontent.com/Ayness/Onet/master/images/ONET.png" width="30" height="30">
+                        </a>
+                        <a href="/home"><span class="green-text name">ONET Tunisie </span></a>
+                        <a href="http://www.onet-tunisie.com/web/fr/home.asp"><span class="white-text email">ORGANISATION NATIONALE DE L'ENFANCE TUNISIENNE </span></a>
+                    </div>
+                </li>
+                <li><a href="/adherentList">Gestion Des Adhérents</a>
+                </li>
+                <li><a href="/internshipList">Gestion Des Stage</a>
+                </li>
+                <li><a href="eventList">Gestion Des Evènements</a>
+                </li>
+                <li><a href="/eventList">Gestion Des NEWS</a>
+                </li>
+                <li><a href="/stat1">Statistiques</a>
+                </li>
+                <hr>
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="collapsible collapsible-accordion">
+                            <a class="collapsible-header">Gestion Des Bureaux<i class="material-icons"></i></a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li><a href="/natOffice">Bureau nationale</a>
+                                    </li>
+                                    <li><a href="/regOfficeList">Bureau Regional</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+
+
+            <!-- /.nav-list -->
+            <!--/ MEnu droit -->
+            <div>
+              <img class="materialboxed" data-caption="ORGANISATION NATIONALE DE L'ENFANCE TUNISIENNE" width="190" src="https://rawgit.com/Ayness/Onet/master/images/17523418_1445042545548123_3435822997402926687_n.jpg">
+            </div>
+            <div class="w3-content w3-section" style="max-width:500px">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/16508804_10210887172486789_6521258900098156613_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/17424813_1896948157184951_1643972327818026501_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/13221531_1143323192386728_4364656795041133984_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/17903666_1464341023618275_7803879645754847932_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/18300888_1491007034285007_7301623349512661743_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/18528066_1506634972722213_1715750680215753112_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/18664236_1509333265785717_3577570800882301313_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/Bureau%20National.jpg" style="width:100%">
+            </div>
+            <script>
+            var myIndex = 0;
+            carousel();
+
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                   x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) {myIndex = 1}
+                x[myIndex-1].style.display = "block";
+                setTimeout(carousel, 2000); // Change image every 2 seconds
+            }
+            </script>
+            <script type="text/javascript">
+                try {
+                    ace.settings.check('sidebar', 'collapsed')
+                } catch (e) {}
+            </script>
+        </div>
+
+        <div class="main-content">
+            <div class="main-content-inner">
+                <div class="breadcrumbs" id="breadcrumbs">
+                    <script type="text/javascript">
+                        try {
+                            ace.settings.check('breadcrumbs', 'fixed')
+                        } catch (e) {}
+                    </script>
+
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="ace-icon fa fa-home home-icon"></i>
+                            <a href="/home">Home</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-calendar-o" aria-hidden="true"> Les Evénements</i>
+                        </li>
+                    </ul>
+                    <!-- /.breadcrumb -->
+
+
+                    <!-- tabs -->
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="tabs">
+                                <li class="tab col s2">
+                                    <a target="_self" href="/adherentList">Les Adhérents</a>
+                                </li>
+                                <li class="tab col s2">
+                                    <a target="_self" href="/internshipList">LES Stages</a>
+                                </li>
+                                <li class="tab col s2">
+                                    <a target="_self" href="/eventList" class="active">Les Evènements</a>
+                                </li>
+                                <li class="tab col s2">
+                                    <a target="_self" href="/newsList">NEWS</a>
+                                </li>
+                                <li class="tab col s2">
+                                    <a target="_self" href="/natOffice">Les Bureaux</a>
+                                </li>
+                                <li class="tab col s2">
+                                    <a target="_self" href="/stat1">Les Statistiques</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.tabs -->
+                </div>
+                <!-- internship Section -->
+                <section>
+                    <div class="headerEvent">
+                        <div class="circle"></div>
+                        <h1> La Liste Des Evènements </h1>
+                    </div>
+                    <div class="line"></div>
+                    <div id="contentEvent">
+                    </div>
+                </section>
+                <div class="fixed-action-btn">
+                    <a class="btn-floating btn-large waves-effect waves-light red pulse"><i class="material-icons">add</i></a>
+                    <ul>
+                        <li><a class="btn-floating yellow" href="/addEvent"><i class="material-icons">event</i></a>
+                        </li>
+                        <li><a class="btn-floating green" href="/addInternship"><i class="material-icons">work</i></a>
+                        </li>
+                        <li><a class="btn-floating pink" href="/addNEWS"><i class="fa fa-newspaper-o" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="footer">
+                    <div class="footer-inner">
+                        <div class="footer-content">
+                            <span class="bigger-120">
+                            <span class="blue bolder">ONET</span> &copy; 2016-2017
+                            </span>
+
+                            &nbsp; &nbsp;
+                            <span class="action-buttons">
+                            <a href="https://twitter.com/onettunisie">
+                                    <i class="ace-icon fa fa-twitter-square blue bigger-150"></i>
+                            </a>
+
+                            <a href="https://www.facebook.com/onet.tn?ref=br_rs">
+                                    <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                            </a>
+
+                            <a href="http://www.onet-tunisie.com">
+                                    <img src="https://raw.githubusercontent.com/Ayness/Onet/master/images/ONET.png" width="20" height="20" style="margin-top:-5px"/>
+                            </a>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+                </a>
+            </div>
+            <!-- /.main-container -->
+            <script>
+                $(document).ready(function() {
+
+                    $.ajax({
+                        url: "http://localhost:8081/events",
+                        type: "GET",
+                        Accept: "application/json",
+                        success: function(resultdata) {
+                            console.log(resultdata);
+                            $.each(resultdata, function(k, v) {
+
+                                var id = v.eventID;
+                                var title = v.title;
+                                var timeEvent = v.time;
+                                var dateEvent = v.date;
+                                var address = v.address;
+                                var ts = v.ts;
+                                var about = v.about;
+                                var tabTime = ts.split(" ");
+
+                                var contentdiv = document.getElementById("contentEvent");
+                                var object = document.createElement("div");
+                                object.id = 'o' + id;
+                                object.classList.add('object');
+                                var datea = document.createElement("div");
+                                datea.classList.add('date');
+                                var circle = document.createElement("div");
+                                circle.classList.add('circle');
+                                var context = document.createElement("div");
+                                context.classList.add('context');
+                                btnDelete = "<button id='b" + id + "' class='btn btn-link'><i class='fa fa fa-trash-o' aria-hidden='true'></i></button> ";
+                                btnEdit = "<button id='a" + id + "' class='btn btn-link'><i class='fa fa-pencil' aria-hidden='true'></i></button>";
+                                datea.innerHTML = tabTime[0] + "<br /><br />" + tabTime[1];
+                                context.innerHTML = "<b><h4><font color=#e33d31>" + title + "</font></b></h4><br /><div class='bandeau' id='event"+id+"'>Le " + dateEvent + " à " + timeEvent + "</br> à " + address + "</br></br><b> A propos : </b></br>" + about + "</br></br><center>" + btnEdit + btnDelete;
+                                object.appendChild(datea);
+                                object.appendChild(circle);
+                                object.appendChild(context);
+                                contentdiv.appendChild(object);
+                                $('#a' + id).on('click', function(e) {
+
+                                    swal.withForm({
+                                        title: 'Changer les informations de ce stage',
+                                        text: 'Ce évènement a été crée le ' + tabTime[0] + ' à ' + tabTime[1],
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#e33d31',
+                                        cancelButtonColor: '#23b912',
+                                        confirmButtonText: 'Changer!',
+                                        closeOnConfirm: true,
+                                        formFields: [{
+                                            id: 'title',
+                                            type: 'text',
+                                            value: title
+                                        }, {
+                                            id: 'date',
+                                            type: 'date',
+                                            value: dateEvent
+                                        }, {
+                                            id: 'time',
+                                            type: 'time',
+                                            value: timeEvent
+                                        }, {
+                                            id: 'address',
+                                            value: address
+                                        }, {
+                                            id: 'about',
+                                            type: 'textarea',
+                                            value: about
+                                        }]
+                                    }, function(isConfirm) {
+                                        var dataToSend = this.swalForm; //$.param();
+                                        dataToSend["eventID"] = id;
+                                        console.log($.param(dataToSend));
+                                        if(isConfirm)
+                                        $.ajax({
+                                            url: "http://localhost:8081/updateEvent",
+                                            type: "POST",
+                                            Accept: "application/json",
+                                            data: $.param(dataToSend),
+                                            success: function(resultdata) {
+                                                console.log(resultdata);
+                                                // var elem = document.getElementById(object.id);
+                                                // elem.parentNode.removeChild(elem);
+                                            }
+                                        });
+                                    })
+
+                                })
+                                $('#b' + id).on('click', function(e) {
+                                    swal({
+                                            title: "Are you sure?",
+                                            text: "You will not be able to recover this imaginary file!",
+                                            type: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonColor: "#DD6B55",
+                                            confirmButtonText: "Yes, delete it!",
+                                            closeOnConfirm: false
+                                        },
+                                        function() {
+                                            $.ajax({
+                                                url: "http://localhost:8081/cancelEvent/" + id,
+                                                type: "GET",
+                                                Accept: "application/json",
+                                                success: function(resultdata) {
+                                                    console.log(resultdata);
+                                                    // var elem = document.getElementById(object.id);
+                                                    // elem.parentNode.removeChild(elem);
+                                                    $('#o' + id).fadeOut();
+
+
+                                                }
+                                            });
+                                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                                        });
+
+                                })
+
+
+                            });
+                        }
+
+
+                    });
+
+
+                });
+            </script>
+
+
+                        <script type="text/javascript">
+                            jQuery(function($) {
+                                // Initialize tabs
+                                $(document).ready(function() {
+                                    $('ul.tabs').tabs();
+                                });
+                                // Initialize collapse button
+                                $(".button-collapse").sideNav();
+                                // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+                                $('.collapsible').collapsible();
+                                $('.button-collapse').sideNav({
+                                    menuWidth: 300, // Default is 300
+                                    edge: 'left', // Choose the horizontal origin
+                                    closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                                    draggable: true // Choose whether you can drag to open on touch screens
+                                });
+                            })
+                        </script>
+            </body>
+            </html>

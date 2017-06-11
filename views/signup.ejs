@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta charset="utf-8" />
+  <title>ONET</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/Ayness/Onet/master/images/ONET.png">
+  <meta name="description" content="overview &amp; stats" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Ayness/Onet/89298508/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Ayness/Onet/cb6f4cf5/font-awesome/4.2.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://rawgit.com/Ayness/Onet/master/css/form.css" />
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Ayness/Onet/89298508/fonts/fonts.googleapis.com.css" />
+  <link rel="stylesheet" href="https://rawgit.com/Ayness/Onet/master/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+  <link rel="stylesheet" href="https://rawgit.com/Ayness/Onet/master/css/materializeINES.css">
+  <link rel="stylesheet" href="https://rawgit.com/JeremyFagis/dropify/master/dist/css/dropify.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/taromero/swal-forms/master/swal-forms.css">
+  <link rel="stylesheet" href="https://rawgit.com/Ayness/Onet/master/css/sweet.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/ace-extra.min.js"></script>
+  <script src="https://rawgit.com/JeremyFagis/dropify/master/dist/js/dropify.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery-ui.custom.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.ui.touch-punch.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.easypiechart.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.sparkline.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.flot.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.flot.pie.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.flot.resize.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/ace-elements.min.js"></script>
+  <script src="https://rawgit.com/Ayness/Onet/master/js/ace.min.js"></script>
+  <script src="http://malsup.github.com/jquery.form.js"></script>
+  <script src="https://cdn.rawgit.com/taromero/swal-forms/master/swal-forms.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+</head>
+
+
+<body class="no-skin">
+    <div id="navbar" class="navbar navbar-default">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('navbar', 'fixed')
+            } catch (e) {}
+        </script>
+
+        <div class="navbar-container" id="navbar-container">
+            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+                <span class="sr-only">Toggle sidebar</span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+            </button>
+
+            <div class="navbar-header pull-left">
+                <a href="/home" class="navbar-brand">
+                    <small>
+                            <img src="https://raw.githubusercontent.com/Ayness/Onet/master/images/ONET.png" width="70" height="70"/>
+                    </small>
+                </a>
+            </div>
+            <div class="navbar-header pull-left">
+                <small>
+                      <MARQUEE WIDTH=1000 HEIGHT=100% behavior="alternate">
+  <font size="3" color="red">  <h1> <span class="marquee"> ORGANISATION NATIONALE DE L'ENFANCE TUNISIENNE </span></h1></font>
+                      </MARQUEE>
+                    </small>
+            </div>
+            <div class="pull-right">
+                <a href="/signup">
+                    <img src="https://rawgit.com/Ayness/Onet/master/images/signUp.png" width="150" height="70" />
+                </a>
+            </div>
+        </div>
+        <!-- /.navbar-container -->
+    </div>
+
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('main-container', 'fixed')
+            } catch (e) {}
+        </script>
+
+        <div id="sidebar" class="sidebar                  responsive">
+            <script type="text/javascript">
+                try {
+                    ace.settings.check('sidebar', 'fixed')
+                } catch (e) {}
+            </script>
+            <!-- signup div -->
+            <br>
+            <div class="login-page">
+                <div class="form">
+
+                    <!-- LOGIN FORM -->
+                    <form class="login-form" action="/" method="post">
+                        <input type="text" placeholder="Email" name="email" />
+                        <input type="password" placeholder="Mot De Passe" name="password" />
+                        <button type="submit">Login</button>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+              <img class="materialboxed" data-caption="ORGANISATION NATIONALE DE L'ENFANCE TUNISIENNE" width="190" src="https://rawgit.com/Ayness/Onet/master/images/17523418_1445042545548123_3435822997402926687_n.jpg">
+            </div>
+            <div class="w3-content w3-section" style="max-width:500px">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/16508804_10210887172486789_6521258900098156613_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/17424813_1896948157184951_1643972327818026501_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/13221531_1143323192386728_4364656795041133984_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/17903666_1464341023618275_7803879645754847932_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/18300888_1491007034285007_7301623349512661743_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/18528066_1506634972722213_1715750680215753112_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/18664236_1509333265785717_3577570800882301313_n.jpg" style="width:100%">
+              <img class="mySlides" src="https://rawgit.com/Ayness/Onet/master/images/Bureau%20National.jpg" style="width:100%">
+            </div>
+            <script>
+            var myIndex = 0;
+            carousel();
+
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                   x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) {myIndex = 1}
+                x[myIndex-1].style.display = "block";
+                setTimeout(carousel, 2000); // Change image every 2 seconds
+            }
+            </script>
+            <script type="text/javascript">
+                try {
+                    ace.settings.check('sidebar', 'collapsed')
+                } catch (e) {}
+            </script>
+        </div>
+
+        <div class="main-content">
+            <div class="main-content-inner">
+                <!-- Signup Section -->
+                <section>
+                    <div class="header">
+                        <div class="circle"></div>
+                        <h1>Inscrivez Vous</h1>
+                    </div>
+                    <div class="line"></div>
+                    <div id="contentAdherent">
+                        <!-- <did class="row"> ya hala </div> -->
+                        <div class="object">
+                            <div class="date">Bienvenue</div>
+                            <div class="circle"></div>
+                            <div class="context">
+                                <div class="bandeau"><b></b>
+                                    <h4><b><font color="#e33d31"><center>INSCRIPTION AU ORGANISATION NATIONALE DE L’ENFANCE TUNISIENNE</center></font></b></h4>
+                                    <br>
+                                    <div class="row">
+                                        <form class="col s12" id="registrationForm" action="/signup" name="registrationForm" method="post">
+                                            <div class="row">
+                                                <div class="input-field col s6">
+                                                    <i class="material-icons prefix">account_circle</i>
+                                                    <input name="firstName" id="firstName" type="text" class="validate" required>
+                                                    <label for="firstName">Nom</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <input name="lastName" id="lastName" type="text" class="validate" required>
+                                                    <label for="lastName">Prénom</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s6">
+                                                    <i class="material-icons prefix">home</i>
+                                                    <input name="address" id="address" type="text" class="validate" required>
+                                                    <label for="address">Adresse</label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <i class="material-icons prefix">folder_shared</i>
+                                                    <input name="nationalIDcard" id="nationalIDcard" type="number" class="validate" maxlength="8" minlength="8" required>
+                                                    <label for="nationalIDcard">CIN</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s6">
+                                                    <i class="material-icons prefix">phone</i>
+                                                    <input name="tel" id="tel" type="tel"  maxlength="8" minlength="8" class="validate">
+                                                    <label for="icon_telephone">Telephone</label>
+                                                </div>
+                                                <div class="radio input-field col s6">
+                                                    <input name="gender" type="radio" id="test1" value="1" class="validate" required="required" data-error="Error msg here"/>
+                                                    <label for="test1">Femelle</label>
+                                                    <input name="gender" type="radio" id="test2" value="0" class="validate" required="required" data-error="Error msg here"/>
+                                                    <label for="test2">male</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field s6">
+                                                    <select class="browser-default waves-effect waves-light btn" name="governorate" id="gov">
+                                                    <option value="" disabled="" selected="">Choisir votre gouvernorat</option>
+                                                    <option value="Ariana">Ariana</option>
+                                                    <option value="Béja">Béja</option>
+                                                    <option value="Ben Arous">Ben Arous</option>
+                                                    <option value="Bizerte">Bizerte</option>
+                                                    <option value="Gabès">Gabès</option>
+                                                    <option value="Gafsa">Gafsa</option>
+                                                    <option value="Jendouba">Jendouba</option>
+                                                    <option value="Kairouan">Kairouan</option>
+                                                    <option value="Kasserine">Kasserine</option>
+                                                    <option value="Kebili">Kebili</option>
+                                                    <option value="Kaf">Kaf</option>
+                                                    <option value="Mahdia">Mahdia</option>
+                                                    <option value="Manouba">Manouba</option>
+                                                    <option value="Medenine">Medenine</option>
+                                                    <option value="Monastir">Monastir</option>
+                                                    <option value="Nabeul">Nabeul</option>
+                                                    <option value="Sfax">Sfax</option>
+                                                    <option value="sidi Bouzid">Sidi Bouzid</option>
+                                                    <option value="Siliana">Siliana</option>
+                                                    <option value="Sousse">Sousse</option>
+                                                    <option value="Tataouine">Tataouine</option>
+                                                    <option value="Tozeur">Tozeur</option>
+                                                    <option value="Tunis">Tunis</option>
+                                                    <option value="Zaghouan">Zaghouan</option>
+                                                 </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field s6">
+                                                    <select class="browser-default waves-effect waves-light btn" class="validate" name="locOfficeID" id="office" required>
+                                                      <option value="" disabled="" selected="">Choisir votre bureau</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">email</i>
+                                                    <input name="email" id="email" type="email" class="validate">
+                                                    <label for="email">Email</label>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">lock</i>
+                                                    <input name="password" id="password" type="password" class="validate">
+                                                    <label for="password">Mot de passe</label>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                                <div class="input-field col s12">
+                                                    <i class="material-icons prefix">lock</i>
+                                                    <input name="password2" id="password2" type="password" class="validate">
+                                                    <label for="password2">Répeter Mot de passe</label>
+                                                    <span id="confirmMessage" class="confirmMessage"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s6">
+                                                    Date De Naissance :
+                                                    <div class="input-field inline">
+                                                        <i class="material-icons prefix">today</i>
+                                                        <input type="date" class="datepicker" id="birthDate" name="birthDate">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="row">
+                                                <div class="file-field input-field">
+                                                    <input type="file">
+                                                    <div class="file-path-wrapper">
+                                                        <i class="material-icons prefix">cloud_upload</i>
+                                                        <input class="file-path validate" type="text" placeholder="Choisir l'image de votre CIN" name="cinfile" id="cinfile">
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <center> <a class="waves-effect waves-light btn" id="submitbtn">s'inscrire</a></center>
+                                        </form>
+                                    </div>
+                                </div>
+                </section>
+                <div class="footer">
+                    <div class="footer-inner">
+                        <div class="footer-content">
+                            <span class="bigger-120">
+                            <span class="blue bolder">ONET</span> &copy; 2016-2017
+                            </span>
+
+                            &nbsp; &nbsp;
+                            <span class="action-buttons">
+                            <a href="https://twitter.com/onettunisie">
+                                    <i class="ace-icon fa fa-twitter-square blue bigger-150"></i>
+                            </a>
+
+                            <a href="https://www.facebook.com/onet.tn?ref=br_rs">
+                                    <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+                            </a>
+
+                            <a href="http://www.onet-tunisie.com">
+                                    <img src="https://raw.githubusercontent.com/Ayness/Onet/master/images/ONET.png" width="20" height="20" style="margin-top:-5px"/>
+                            </a>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+                </a>
+                </div>
+                <!-- /.main-container -->
+                <!-- basic scripts -->
+                <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.2.1.1.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.js"></script>
+
+                <% try{
+                  if (message && message.length > 0) { %>
+                    <script>
+                        // var $toastContent = $('<span><%= message %></span>');
+                        Materialize.toast('<span><%= message %></span>', 5000);
+                    </script>
+                    <%
+                  }
+                }catch(e){%>
+                        <script>
+                            // var $toastContent = $('<span><%= message %></span>');
+                            Materialize.toast('<span><%=e%></span>', 5000);
+                        </script>
+                        <%}%>
+
+                            <!-- <script type="text/javascript">if ('ontouchstart' in document.documentElement) document.write("<script src='https://rawgit.com/Ayness/Onet/master/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");</script> -->
+                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                            <script src="https://rawgit.com/Ayness/Onet/master/js/jquery-ui.custom.min.js"></script>
+                            <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.ui.touch-punch.min.js"></script>
+                            <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.easypiechart.min.js"></script>
+                            <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.sparkline.min.js"></script>
+                            <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.flot.min.js"></script>
+                            <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.flot.pie.min.js"></script>
+                            <script src="https://rawgit.com/Ayness/Onet/master/js/jquery.flot.resize.min.js"></script>
+                            <!-- ace scripts -->
+                            <script src="https://rawgit.com/Ayness/Onet/master/js/ace-elements.min.js"></script>
+                            <script src="https://rawgit.com/Ayness/Onet/master/js/ace.min.js"></script>
+                            <!-- inline scripts related to this page -->
+                            <script type="text/javascript">
+
+                                $(document).ready(function() {
+                                    $('.datepicker').pickadate({
+                                        format: 'yyyy-mm-dd',
+                                        selectMonths: true, // Creates a dropdown to control month
+                                        selectYears: 15 // Creates a dropdown of 15 years to control year
+                                    });
+                                    $('select').material_select();
+                                    $.ajax({
+                                        url: "http://localhost:8081/locoffices",
+                                        type: "GET",
+                                        Accept: "application/json",
+                                        success: function(resultdata) {
+
+                                              for (var key in resultdata) {
+                                                console.log(key);
+                                                $('#office').append($('<optgroup>', {
+                                                  label: key,
+                                                }));
+                                                $.each(resultdata[key], function(k, v) {
+                                                  console.log(v);
+                                                  $('#office').find('optgroup[label="'+key+'"]').append($('<option>', {
+                                                      value: v.locOfficeID,
+                                                      text: v.city + " - " + v.address
+                                                  }));
+                                                })
+                                              }
+                                        }
+                                    });
+                                    $("#submitbtn").on("click", (e) => {
+                                        if(typeof($("input[name='gender']:checked"). val())=="undefined" || $("#gov").val()==null || $("#office").val()==null)
+                                          Materialize.toast('Completez les champs nécessaires', 3000, 'red')
+                                        $("#registrationForm").submit();
+                                    })
+
+                                    $("#registrationForm").validate({
+                                        rules: {
+                                            firstName: {
+                                                required: true,
+                                                minlength: 5
+                                            },
+                                            lastName: {
+                                                required: true,
+                                                minlength: 3
+                                            },
+                                            email: {
+                                                required: true,
+                                                minlength: 5
+                                            },
+                                            password: {
+                                                required: true,
+                                                minlength: 5
+                                            },
+                                            address: {
+                                                required: true,
+                                                minlength: 5
+                                            },
+                                            nationalIDcard: {
+                                                required: true,
+                                                minlength: 8
+                                            },
+                                            tel: {
+                                                required: true,
+                                                minlength: 8
+                                            },
+                                            nationalIDcard: {
+                                                required: true,
+                                                minlength: 8
+                                            },
+                                            gender: {
+                                                required: true,
+                                            },
+                                            governorate: {
+                                                required: true,
+                                            },
+                                            locOfficeID: {
+                                                required: true,
+                                            },
+                                            birthDate: {
+                                                required: true,
+                                            },
+                                            password2: {
+                                                required: true,
+                                                equalTo: "#password"
+                                            }
+                                        },
+                                        //For custom messages
+                                        messages: {
+                                            lastName: {
+                                                required: "Entrez votre prénom",
+                                                minlength: "Completez votre prénom"
+                                            },
+                                            email: {
+                                                required: "Entrez votre email",
+                                                minlength: "Completez votre email"
+                                            },
+                                            firstName: {
+                                                required: "Entrez votre nom",
+                                                minlength: "Completez votre nom"
+                                            },
+                                            password: {
+                                               required :"Enterez un mot de passe",
+                                               minlength :"Le mot de passe doit etre 6 charachteres au minimum."
+                                            },
+                                            password2: {
+                                                required: "Repetez le mot de passe",
+                                                equalTo: "Les mots de passes ne sont pas dentiques"
+                                            },
+                                            address: {
+                                                required: "Entrez votre addresse",
+                                                minlength: "L'addresse doit etre 5 charachteres au minimum"
+                                            },
+                                            nationalIDcard: {
+                                                required: "Entrez votre CIN",
+                                                minlength: "Le CIN doit etre 8 charachteres au minimum"
+                                            },
+                                            tel: {
+                                                required: "Entrez votre tel",
+                                                minlength: "Le tel doit etre 8 charachteres au minimum"
+                                            },
+                                            gender: {
+                                                required: "Choisir votre sexe",
+                                            },
+                                            governorate: {
+                                                required: "Choisir votre governorat",
+                                            },
+                                            locOfficeID: {
+                                                required: "Choisir cotre bureau local",
+                                            },
+                                            birthDate: {
+                                                required: "Entrez votre date de naissance",
+                                            }
+                                        },
+                                        errorElement: 'div',
+                                        errorClass: 'invalid',
+                                        errorPlacement: function(error, element) {
+                                            element.next("label").attr("data-error", error.contents().text());
+                                            // var placement = $(element).data('error');
+                                            // if (placement) {
+                                            //     $(placement).append(error)
+                                            // } else {
+                                            //     error.insertAfter(element);
+                                            // }
+                                        }
+                                    });
+                                });
+                            </script>
+                            <!-- inline scripts related to this page -->
+                            <script type="text/javascript">
+                                jQuery(function($) {
+                                    // Initialize tabs
+                                    $(document).ready(function() {
+                                        $('ul.tabs').tabs();
+                                    });
+                                    // Initialize collapse button
+                                    $(".button-collapse").sideNav();
+                                    // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+                                    $('.collapsible').collapsible();
+                                    $('.button-collapse').sideNav({
+                                        menuWidth: 300, // Default is 300
+                                        edge: 'left', // Choose the horizontal origin
+                                        closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                                        draggable: true // Choose whether you can drag to open on touch screens
+                                    });
+                                })
+                            </script>
+</body>
+</html>
