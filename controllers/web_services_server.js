@@ -1,4 +1,4 @@
-//web service file teffa
+//web service file
 'use strict';
 //Hapi : The Restful APIs.
 const Hapi = require('hapi');
