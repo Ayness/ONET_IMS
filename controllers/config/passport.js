@@ -17,13 +17,14 @@ module.exports = function(passport, connection) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-      // console.log("serialize");
+      console.log("serialize");
       // console.log(user);
       done(null, user);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(user, done) {
+      console.log("deserialize");
         var key;
         var id;
         if(user.type=="admin"){
@@ -40,7 +41,7 @@ module.exports = function(passport, connection) {
           if (rows[0]) {
             rows[0]["type"] = user.type;
             var q="SELECT MAX(I.type) as level FROM internship I ,participation P WHERE I.internshipID = P.internshipID and adhID = '" + rows[0].adhID + "' and validation = 1;";
-            // console.log(q);
+            console.log(q);
             connection.query(q ,
             function (error, results, fields) {
               if (error) throw error;
@@ -140,13 +141,7 @@ module.exports = function(passport, connection) {
                   var q="SELECT MAX(I.type) as level FROM internship I ,participation P WHERE I.internshipID = P.internshipID and adhID = '" + rows[0].adhID + "' and validation = 1;";
                   var isTrue = bcrypt.compareSync(password, rows[0].password); //hashed password
                   if(isTrue){ //if password is correct we fetch his level
-                    connection.query(q ,
-                    function (error, results, fields) {
-                      if (error) throw error;
-                      rows[0]["level"]=results[0].level;
-                      console.log(rows[0]);
-                      return done(null, rows[0]);
-                    });
+                    return done(null, rows[0]);
                   }
                   else { //password incorrect
                     return done(null, false, req.flash('loginMessage', "votre email ou mot de pass n'est pas correcte!"));
