@@ -221,6 +221,26 @@ server.route({
       });
   }
 });
+//search for legitimate adherants based on a string
+server.route({
+  method: 'GET',
+  path: '/searchInterns/{internshipID}/{s}',
+  handler: function(request, reply) {
+    var s = request.params.s;
+    var internshipID = request.params.internshipID;
+    var q = 'SELECT * FROM internship I, participation P, adherent A WHERE I.internshipID = P.internshipID and A.adhID = P.adhID and P.internshipID = "' + internshipID + '" and (A.address like "%' + s + '%" OR A.nationalIDcard like "%' + s + '%" OR A.lastName like "%' + s + '%" OR A.email like "%' + s + '%" OR A.firstName like "%' + s + '%" OR A.birthDate like "%' + s + '%")'
+    connection.query(q,
+      function(error, results, fields) {
+        if (error) {
+          reply(JSON.stringify(error));
+          console.log(error);
+          return
+        };
+
+        reply(results);
+      });
+  }
+});
 //upload an adherent national id card image
 server.route({
   method: 'post',
@@ -384,7 +404,23 @@ server.route({
     var type = Number(request.params.type) + 1;
     console.log("type");
     console.log(type);
-    connection.query('SELECT internshipID,I.address,type,price,type,DATE_FORMAT(beginDate, "%d/%m/%Y") as beginDate,DATE_FORMAT(endDate, "%d/%m/%Y") as endDate,DATE_FORMAT(timestamp, "%d-%m-%Y %h:%m:%s") as ts,firstName,lastName FROM internship I,adherent A WHERE I.supervisorID = A.adhID and type <= "' + type + '" and DATE(beginDate)>=CURDATE()+7 ORDER BY type ,timestamp DESC',
+    connection.query('SELECT supervisorID, internshipID,I.address,type,price,type,DATE_FORMAT(beginDate, "%d/%m/%Y") as beginDate,DATE_FORMAT(endDate, "%d/%m/%Y") as endDate,DATE_FORMAT(timestamp, "%d-%m-%Y %h:%m:%s") as ts,firstName,lastName FROM internship I,adherent A WHERE I.supervisorID = A.adhID and type <= "' + type + '" and DATE(beginDate)>=CURDATE()+7 ORDER BY type ,timestamp DESC',
+      function(error, results, fields) {
+        if (error) {
+          reply(JSON.stringify(error));
+          console.log(error);
+          return
+        };
+        reply(results);
+      });
+  }
+});
+//Get ALL internships, where datebegin>current date
+server.route({
+  method: 'GET',
+  path: '/internships',
+  handler: function(request, reply) {
+    connection.query('SELECT internshipID,I.address,type,price,type,DATE_FORMAT(beginDate, "%d/%m/%Y") as beginDate,DATE_FORMAT(endDate, "%d/%m/%Y") as endDate,DATE_FORMAT(timestamp, "%d-%m-%Y %h:%m:%s") as ts,firstName as supervisorFirstName,lastName as supervisorLastName, adhID as supervisorID FROM internship I,adherent A WHERE I.supervisorID = A.adhID  and DATE(beginDate)>=CURDATE() ORDER BY timestamp DESC',
       function(error, results, fields) {
         if (error) {
           reply(JSON.stringify(error));
@@ -398,9 +434,9 @@ server.route({
 //Get ALL internships
 server.route({
   method: 'GET',
-  path: '/internships',
+  path: '/allInternships',
   handler: function(request, reply) {
-    connection.query('SELECT internshipID,I.address,type,price,type,DATE_FORMAT(beginDate, "%d/%m/%Y") as beginDate,DATE_FORMAT(endDate, "%d/%m/%Y") as endDate,DATE_FORMAT(timestamp, "%d-%m-%Y %h:%m:%s") as ts,firstName as supervisorFirstName,lastName as supervisorLastName, adhID as supervisorID FROM internship I,adherent A WHERE I.supervisorID = A.adhID  and DATE(beginDate)>=CURDATE() ORDER BY timestamp DESC',
+    connection.query('SELECT internshipID,I.address,type,price,type,DATE_FORMAT(beginDate, "%d/%m/%Y") as beginDate,DATE_FORMAT(endDate, "%d/%m/%Y") as endDate,DATE_FORMAT(timestamp, "%d-%m-%Y %h:%m:%s") as ts,firstName as supervisorFirstName,lastName as supervisorLastName, adhID as supervisorID FROM internship I,adherent A WHERE I.supervisorID = A.adhID  ORDER BY timestamp DESC',
       function(error, results, fields) {
         if (error) {
           reply(JSON.stringify(error));
@@ -581,7 +617,7 @@ server.route({
   handler: function(request, reply) {
     const adhid = request.params.adhid;
 
-    connection.query('SELECT type, beginDate, endDate, address FROM internship WHERE supervisorID = "' + adhid + '"',
+    connection.query('SELECT type, beginDate, endDate, address FROM internship WHERE Date(endDate)>=CURDATE() and supervisorID = "' + adhid + '"',
       function(error, results, fields) {
         if (error) {
           reply(JSON.stringify(error));
@@ -608,7 +644,7 @@ server.route({
   handler: function(request, reply) {
     const adhid = request.params.adhid;
 
-    connection.query('SELECT A.nationalIDcard, A.firstName, A.lastName, I.type, I.internshipID, DATE_FORMAT(beginDate, "%d/%m/%Y") as beginDate, DATE_FORMAT(endDate, "%d/%m/%Y") as endDate, P.validation, P.payment FROM internship I, participation P, adherent A WHERE I.internshipID = P.internshipID and A.adhID = P.adhID and A.adhID = "' + adhid + '" and DATE(endDate)>=CURDATE()',
+    connection.query('SELECT A.nationalIDcard, A.firstName, A.lastName, I.type, I.internshipID, DATE_FORMAT(beginDate, "%d/%m/%Y") as beginDate, DATE_FORMAT(endDate, "%d/%m/%Y") as endDate, P.validation, P.payment FROM internship I, participation P, adherent A WHERE I.internshipID = P.internshipID and A.adhID = P.adhID and A.adhID = "' + adhid + '" and DATE(endDate)<CURDATE()',
       function(error, results, fields) {
         if (error) {
           reply(JSON.stringify(error));
@@ -899,7 +935,7 @@ server.route({
     const date = request.payload.date;
     const address = request.payload.address;
     const about = request.payload.about;
-    var q = "UPDATE event SET title = '" + title + "',time = '" + time + "',date = '" + date + "',address = '" + address + "',about = '" + about + "' where eventID = " + id;
+    var q = "UPDATE event SET time = '" + time + "',date = '" + date + "',address = '" + address + "',about = '" + about + "' where eventID = " + id;
     console.log(q);
     connection.query(q,
       function(error, result, fields) {
@@ -1224,7 +1260,8 @@ server.route({
           }));
         if (result.affectedRows) {
           reply(JSON.stringify({
-            success: true
+            success: true,
+            insertedId: result.insertId
           }));
         } else {
           reply(JSON.stringify({
@@ -1310,9 +1347,10 @@ server.route({
         };
 
         if (result.affectedRows) {
-          reply(JSON.stringify({
-            success: true
-          }));
+          reply({
+            success: true,
+            locOfficeID: result.insertId
+          });
         } else {
           reply(JSON.stringify({
             success: false
@@ -1349,9 +1387,10 @@ server.route({
         };
 
         if (result.affectedRows) {
-          reply(JSON.stringify({
-            success: true
-          }));
+          reply({
+            success: true,
+            regOfficeID: result.insertId
+          });
         } else {
           reply(JSON.stringify({
             success: false

@@ -300,16 +300,16 @@
                                                 </optgroup>
                                             </select>
 
-                                            <input type="number" name="price" placeholder="Le prix de ce stage" />
+                                            <input type="number" name="price" placeholder="Le prix de ce stage" required/>
                                             <br>
-                                            <input type="date" name="beginDate" id="beginDate" placeholder="La date de début">
+                                            <input type="date" name="beginDate" id="beginDate" placeholder="La date de début" required>
                                             <br>
-                                            <input type="date" name="endDate" id="endDate" placeholder="La date de fin">
+                                            <input type="date" name="endDate" id="endDate" placeholder="La date de fin" required="">
                                             <br>
-                                            <input type="text" name="address" placeholder="Adresse">
+                                            <input type="text" name="address" placeholder="Adresse" required>
                                             <br>
 
-                                            <select placeholder="l'encadreur" class="browser-default waves-effect waves-light btn" name="supervisorID" id="supervisorID" placeholder="L'encadreur">
+                                            <select required placeholder="l'encadreur" class="browser-default waves-effect waves-light btn" name="supervisorID" id="supervisorID" placeholder="L'encadreur">
                                               <optgroup label="L'encadreur'">
                                            </select>
                                             <button type="submit" id="btnAddInternship">Ajouter Stage</button>
@@ -385,8 +385,11 @@
                     var btn = $('#btnAddInternship'); // hne id button
                     if(Date.parse($("#beginDate").val())>=Date.parse($("#endDate").val()))
                       Materialize.toast('<span>La date debut doit etre inferieur a la date fin', 5000, "red");
+                    else if(Date.parse($("#beginDate").val())<Date.now()){
+                      Materialize.toast('<span>Entrez une date valide', 5000, "red");
+                    }
                     else{
-                      btn.text("Ajout d'événement...");
+                      btn.text("Ajout du stage...");
                       $.ajax({
                           type: "POST",
                           url: "http://localhost:8081/insertInternship",
@@ -398,7 +401,7 @@
                               if (obj.success == true) {
                                   Materialize.toast('<span>Stage ajouté avec success</span>', 5000);
                                   form.trigger('reset');
-                                  btn.text("success").delay(2000).queue(function(next) {
+                                  btn.text("Stage ajouté avec succés").delay(2000).queue(function(next) {
                                       $(this).text("Ajouter Stage");
                                       next();
                                   });

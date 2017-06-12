@@ -323,7 +323,7 @@
             <script>
                 $(document).ready(function() {
                     $.ajax({
-                        url: "http://localhost:8081/internships",
+                        url: "http://localhost:8081/allInternships",
                         type: "GET",
                         Accept: "application/json",
                         success: function(resultdata) {
@@ -394,47 +394,65 @@
 
                                     swal.withForm({
                                         title: 'Changer les informations de ce stage',
-                                        text: type + ' a été crée le ' + tabTime[0] + ' à ' + tabTime[1],
+                                        text: typo + ' a été crée le ' + tabTime[0] + ' à ' + tabTime[1],
                                         showCancelButton: true,
                                         confirmButtonColor: '#e33d31',
                                         cancelButtonColor: '#23b912',
                                         confirmButtonText: 'Changer!',
+                                        cancelButtonText: 'Annuler!',
                                         closeOnConfirm: true,
                                         formFields: [{
                                             id: 'beginDate',
                                             type: 'date',
-                                            value: xbegin
+                                            value: xbegin,
+                                            required: true
                                         }, {
                                             id: 'endDate',
                                             type: 'date',
-                                            value: xend
+                                            value: xend,
+                                            required: true
                                         }, {
                                             id: 'address',
                                             value: address
                                         }, {
                                             id: 'price',
                                             type: 'number',
-                                            value: price
+                                            value: price,
+                                            required: true
                                         }]
                                     }, function(isConfirm) {
                                         var dataToSend = this.swalForm; //$.param();
                                         dataToSend["internshipID"] = id;
-                                        console.log($.param(dataToSend));
-                                        if(isConfirm)
-                                        $.ajax({
-                                            url: "http://localhost:8081/updateInternship",
-                                            type: "POST",
-                                            Accept: "application/json",
-                                            data: $.param(dataToSend),
-                                            success: function(resultdata) {
-                                                console.log(resultdata);
-                                                // var elem = document.getElementById(object.id);
-                                                // elem.parentNode.removeChild(elem);
-                                                $("#internship" + id).html("<b>Ref : </b>"+ id +"<br>Du " + dataToSend.beginDate + " au " + dataToSend.endDate + " </br> à " + dataToSend.address + "</br> <b>Le Prix de ce stage : </b>" + dataToSend.price + " DT</br><center>");
-                                                console.log("#internship" + id);
-                                                swal("Terminé", "Le stage est mis à jour!", "success");
-                                            }
-                                        });
+                                        console.log(Date.now());
+                                        if(isConfirm){
+                                          if(Date.parse(dataToSend.beginDate)>=Date.parse(dataToSend.endDate)){
+                                            Materialize.toast('<span>La date debut doit etre inferieur a la date fin', 5000, "red");
+                                            return ;
+                                          }
+                                          if(Date.parse(dataToSend.beginDate)<Date.now()){
+                                            Materialize.toast('<span>Entrez une date valide', 5000, "red");
+                                            return ;
+                                          }
+                                          if(dataToSend.address.length<2 || dataToSend.price==0){
+                                            Materialize.toast('<span>Entrez des données valide', 5000, "red");
+                                            return ;
+                                          }
+                                          console.log("passed");
+                                          $.ajax({
+                                              url: "http://localhost:8081/updateInternship",
+                                              type: "POST",
+                                              Accept: "application/json",
+                                              data: $.param(dataToSend),
+                                              success: function(resultdata) {
+                                                  console.log(resultdata);
+                                                  // var elem = document.getElementById(object.id);
+                                                  // elem.parentNode.removeChild(elem);
+                                                  $("#internship" + id).html("<b>Ref : </b>"+ id +"<br>Du " + dataToSend.beginDate + " au " + dataToSend.endDate + " </br> à " + dataToSend.address + "</br> <b>Le Prix de ce stage : </b>" + dataToSend.price + " DT</br><center>");
+                                                  console.log("#internship" + id);
+                                                  swal("Terminé", "Le stage est mis à jour!", "success");
+                                              }
+                                          });
+                                        }
                                     })
 
                                 })
@@ -446,6 +464,7 @@
                                             showCancelButton: true,
                                             confirmButtonColor: "#DD6B55",
                                             confirmButtonText: "Oui, supprimez-le!",
+                                            cancelButtonText: "Annuler",
                                             closeOnConfirm: false
                                         },
                                         function() {

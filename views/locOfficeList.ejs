@@ -329,13 +329,28 @@
 
             <script>
                 $(document).ready(function() {
-
-
                     $.ajax({
                         url: "http://localhost:8081/locOffPerReg/<%= id %>",
                         type: "GET",
                         Accept: "application/json",
                         success: function(resultdata) {
+                          if (resultdata.length == 0) {
+                            var contentdiv = document.getElementById("contentAdherent");
+                            var object = document.createElement("div");
+                            object.classList.add('object');
+                            var datea = document.createElement("div");
+                            datea.classList.add('date');
+                            var circle = document.createElement("div");
+                            circle.classList.add('circle');
+                            var context = document.createElement("div");
+                            context.classList.add('context');
+                            datea.innerHTML = "<b id='oops'style='font-size:1em'>Oups!!!!<b>";
+                            context.innerHTML = "<b><h4><font color=#e33d31>  </font></b></h4><br /><div class='bandeau'><h1><center>Aucun bureau n'est disponible</center></h1></br></br><center>";
+                            object.appendChild(datea);
+                            object.appendChild(circle);
+                            object.appendChild(context);
+                            contentdiv.appendChild(object);
+                          }
                             $.each(resultdata, function(k, v) {
                                 var id = v.locOfficeID;
                                 var address = v.address;
@@ -356,96 +371,58 @@
                                 btnDelete = "<button id='b" + id + "' class='btn btn-link'><i class='fa fa fa-trash-o' aria-hidden='true'></i></button> "
                                 btnList = "<a target='_blank' href='/locOffAdherents/"+id+"/"+city+"/"+address+"'><button class='btn btn-link'><i class='fa fa-list-ul' aria-hidden='true'></i> </button></a>"
                                 datea.innerHTML = city;
-                                context.innerHTML = "<div class='bandeau'><b><h2><font color=#e33d31><center>" + address + "</font></b></h2><br /></br></br><center>" + btnList+btnDelete;
+                                context.innerHTML = "<div class='bandeau'><b><h2><font color=#e33d31><center>" +city +", "+ address + "</font></b></h2><br /></br></br><center>" + btnList+btnDelete;
                                 object.appendChild(datea);
                                 object.appendChild(circle);
                                 object.appendChild(context);
                                 contentdiv.appendChild(object);
-                                $('#a' + id).on('click', function(e) {
-
-                                    swal.withForm({
-                                        title: 'Changer les informations de ce stage',
-                                        text: type + ' a été crée le ' + date + ' à ' + time,
-                                        showCancelButton: true,
-                                        confirmButtonColor: '#e33d31',
-                                        cancelButtonColor: '#23b912',
-                                        confirmButtonText: 'Changer!',
-                                        closeOnConfirm: true,
-                                        formFields: [{
-                                            id: 'beginDate',
-                                            type: 'date',
-                                            value: xbegin
-                                        }, {
-                                            id: 'endDate',
-                                            type: 'date',
-                                            value: xend
-                                        }, {
-                                            id: 'address',
-                                            value: address
-                                        }, {
-                                            id: 'price',
-                                            type: 'number',
-                                            value: price
-                                        }]
-                                    }, function(isConfirm) {
-                                        // do whatever you want with the form data
-
-                                        console.log(this.swalForm)
-                                    })
-
-                                })
                                 $('#b' + id).on('click', function(e) {
                                     swal({
-                                            title: "Are you sure?",
-                                            text: "You will not be able to recover this imaginary file!",
+                                            title: "Supprimez ce bureau?",
+                                            text: "Ce bureau sera supprimé permanente",
                                             type: "warning",
                                             showCancelButton: true,
                                             confirmButtonColor: "#DD6B55",
-                                            confirmButtonText: "Yes, delete it!",
+                                            confirmButtonText: "Supprimer!",
+                                            cancelButtonText: "Annuler!",
                                             closeOnConfirm: false
                                         },
-                                        function() {
+                                        function(isConfirm) {
+                                            if(isConfirm)
                                             $.ajax({
                                                 url: "http://localhost:8081/closeLocOffice/" + id,
                                                 type: "GET",
                                                 Accept: "application/json",
                                                 success: function(resultdata) {
                                                     console.log(resultdata);
-                                                    // var elem = document.getElementById(object.id);
-                                                    // elem.parentNode.removeChild(elem);
                                                     $('#o' + id).fadeOut();
-
-
                                                 }
                                             });
-                                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                                            swal("Supprimé!", "Le bureau est supprimé.", "success");
                                         });
-
                                 })
-
-
                             });
                         }
-
-
-
                     });
 
                     $("#fabAddOffice").on("click", (e)=>{
                       swal.withForm({
-                          title: 'Ajouter ub bureau local',
+                          title: 'Ajouter un bureau local',
                           text: 'Ajouter bureau local a <%= city %>',
                           showCancelButton: true,
                           confirmButtonColor: '#e33d31',
                           cancelButtonColor: '#23b912',
-                          confirmButtonText: 'Changer!',
+                          confirmButtonText: 'Ajouter!',
+                          cancelButtonText: 'Annuler!',
                           closeOnConfirm: true,
                           formFields: [{
                               id: 'city',
                               type: 'text',
+                              required: true
                           }, {
                               id: 'address',
                               type: 'text',
+                              required: true
                           }]
                       }, function(isConfirm) {
                           var dataToSend = this.swalForm; //$.param();
@@ -459,8 +436,58 @@
                                   Accept: "application/json",
                                   data: $.param(dataToSend),
                                   success: function(resultdata) {
+                                    if($("#oops").length) $("#contentAdherent").html("");
                                       console.log(resultdata);
                                       swal("Terminé", "Le bureau a été ajouté avec success!", "success");
+                                      var id = resultdata.locOfficeID;
+                                      var address = dataToSend.address;
+                                      var city = dataToSend.city;
+                                      var regOfficeID = <%=id%>;
+
+                                      var contentdiv = document.getElementById("contentAdherent");
+                                      var object = document.createElement("div");
+                                      object.id = 'o' + id;
+                                      console.log(object.id);
+                                      object.classList.add('object');
+                                      var datea = document.createElement("div");
+                                      datea.classList.add('date');
+                                      var circle = document.createElement("div");
+                                      circle.classList.add('circle');
+                                      var context = document.createElement("div");
+                                      context.classList.add('context');0
+                                      btnDelete = "<button id='b" + id + "' class='btn btn-link'><i class='fa fa fa-trash-o' aria-hidden='true'></i></button> "
+                                      btnList = "<a target='_blank' href='/locOffAdherents/"+id+"/"+city+"/"+address+"'><button class='btn btn-link'><i class='fa fa-list-ul' aria-hidden='true'></i> </button></a>"
+                                      datea.innerHTML = city;
+                                      context.innerHTML = "<div class='bandeau'><b><h2><font color=#e33d31><center>" + address + "</font></b></h2><br /></br></br><center>" + btnList+btnDelete;
+                                      object.appendChild(datea);
+                                      object.appendChild(circle);
+                                      object.appendChild(context);
+                                      contentdiv.appendChild(object);
+                                      $('#b' + id).on('click', function(e) {
+                                          swal({
+                                                  title: "Supprimez ce bureau?",
+                                                  text: "Ce bureau sera supprimé permanente",
+                                                  type: "warning",
+                                                  showCancelButton: true,
+                                                  confirmButtonColor: "#DD6B55",
+                                                  confirmButtonText: "Supprimer!",
+                                                  cancelButtonText: "Annuler!",
+                                                  closeOnConfirm: false
+                                              },
+                                              function(isConfirm) {
+                                                  if(isConfirm)
+                                                  $.ajax({
+                                                      url: "http://localhost:8081/closeLocOffice/" + id,
+                                                      type: "GET",
+                                                      Accept: "application/json",
+                                                      success: function(resultdata) {
+                                                          console.log(resultdata);
+                                                          $('#o' + id).fadeOut();
+                                                      }
+                                                  });
+                                                  swal("Supprimé!", "Le bureau est supprimé.", "success");
+                                              });
+                                      })
                                   }
                               });
                             else

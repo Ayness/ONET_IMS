@@ -429,6 +429,7 @@
 
                 }
                 $.each(resultdata, function(k, v) {
+                  if(v.supervisorID==<%=user.adhID%>) return true;
                   $.ajax({
                     url: "http://localhost:8081/participation/<%= user.adhID %>/" + v.internshipID,
                     type: "GET",

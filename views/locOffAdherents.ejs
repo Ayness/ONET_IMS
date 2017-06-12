@@ -278,14 +278,7 @@
                     <!-- /.tabs -->
 
                 </div>
-                <ul id="tabs-swipe-demo" class="tabs">
-                    <li class="tab col s3">
-                        <a target="_self" href="/adherentList" class="active">La Liste Des Adhérents Acceptés</a>
-                    </li>
-                    <li class="tab col s3">
-                        <a target="_self" href="/illegitimateAdherentList">La Liste Des Adhérents Non Acceptés</a>
-                    </li>
-                </ul>
+
                 <br>
                 <nav>
                     <div class="nav-wrapper">
@@ -349,6 +342,23 @@
                         type: "GET",
                         Accept: "application/json",
                         success: function(resultdata) {
+                          if (resultdata.length == 0) {
+                            var contentdiv = document.getElementById("contentAdherent");
+                            var object = document.createElement("div");
+                            object.classList.add('object');
+                            var datea = document.createElement("div");
+                            datea.classList.add('date');
+                            var circle = document.createElement("div");
+                            circle.classList.add('circle');
+                            var context = document.createElement("div");
+                            context.classList.add('context');
+                            datea.innerHTML = "<br><b style='font-size:2em'>Oups!!!!<b>";
+                            context.innerHTML = "<b><h4><font color=#e33d31>  </font></b></h4><br /><div class='bandeau'><h1><center>Aucun adherent pour ce bureau</center></h1></br></br><center>";
+                            object.appendChild(datea);
+                            object.appendChild(circle);
+                            object.appendChild(context);
+                            contentdiv.appendChild(object);
+                          }
                             $.each(resultdata, function(k, v) {
                                 var id = v.adhID;
                                 var firstName = v.firstName;
@@ -452,241 +462,6 @@
             <!-- inline scripts related to this page -->
             <script type="text/javascript">
                 jQuery(function($) {
-                  $("#closeSearch").on('click',(e)=>{
-                    $('#search').val("");
-                    $('#search').trigger('keyup');
-                  })
-                    $('#search').keyup(function() {
-
-                        if (this.value != "") {
-                            var x = document.getElementById("contentAdherent");
-                            $(x).empty();
-                            $.ajax({
-                                url: "http://localhost:8081/search/" + this.value,
-                                type: "GET",
-                                Accept: "application/json",
-                                success: function(resultdata) {
-                                    $.each(resultdata, function(k, v) {
-                                        var id = v.adhID;
-                                        var firstName = v.firstName;
-                                        var lastName = v.lastName;
-                                        var birthDate = v.birthDate;
-                                        var email = v.email;
-                                        var address = v.address;
-                                        var paid = v.paid;
-                                        var nationalIDcard = v.nationalIDcard;
-                                        var locOfficeID = v.locOfficeID;
-                                        var cinExt = v.cinExt;
-
-                                        var contentdiv = document.getElementById("contentAdherent");
-                                        var object = document.createElement("div");
-                                        object.id = 'o' + id;
-                                        console.log(object.id);
-                                        object.classList.add('object');
-                                        var datea = document.createElement("div");
-                                        datea.classList.add('date');
-                                        var circle = document.createElement("div");
-                                        circle.classList.add('circle');
-                                        var context = document.createElement("div");
-                                        context.classList.add('context');
-                                        if (paid == 1) {
-                                            var p = "Actif";
-                                        } else {
-                                            var p = "Non Actif";
-                                        }
-
-                                        function convert(str) {
-                                            var date = new Date(str),
-                                                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-                                                day = ("0" + date.getDate()).slice(-2);
-                                            return [date.getFullYear(), mnth, day].join("-");
-                                        }
-                                        x = convert(birthDate);
-                                        if (p == "Actif") {
-                                            btnEdit = "<button id='a" + id + "' class='btn btn-link disabled'><i class='fa fa-check-square-o' aria-hidden='true'></i></button>";
-                                        } else if (p == "Non Actif") {
-                                            btnEdit = "<button id='a" + id + "' class='btn btn-link'><i class='fa fa-check-square-o' aria-hidden='true'></i></button>"
-                                        }
-
-                                        btnDelete = "<button id='b" + id + "' class='btn btn-link'><i class='fa fa fa-trash-o' aria-hidden='true'></i></button> "
-                                        btnHistory = "<a target='_blank' href='/checkAdherentHistory/"+id+"'><button id='c" + id + "' class='btn btn-link'><i class='fa fa-history' aria-hidden='true'></i> </button></a>"
-                                        datea.innerHTML = p;
-                                        context.innerHTML = "<b><h4><font color=#e33d31>" + firstName + " " + lastName + "</font></b></h4><br /><h5><div class='bandeau'><b>Carte d'identité nationale : </b>" + nationalIDcard + "<br /><b>Date de naissance : </b>" + x + "<br /><b>Adresse : </b>" + address + "<br /><b>Email : </b>" + email + "<br /><b>Souscrit au bureau local : </b>" + locOfficeID + "</br><center><img src='http://localhost:8000/cin/"+id+cinExt+"' height='285' width='450'></center><br><center>" + btnEdit + btnDelete + btnHistory +"</center>";
-                                        object.appendChild(datea);
-                                        object.appendChild(circle);
-                                        object.appendChild(context);
-                                        contentdiv.appendChild(object);
-                                        $('#a' + id).on('click', function(e) {
-                                            $.ajax({
-                                                url: "http://localhost:8081/changeStatus/" + id,
-                                                type: "GET",
-                                                Accept: "application/json",
-                                                success: function(resultdata) {
-                                                    $('#a' + id).addClass("disabled");
-                                                    console.log(resultdata);
-                                                    swal(
-                                                        'Terminé!',
-                                                        'Cet adhérent est actif maintenant!',
-                                                        'success'
-                                                    )
-                                                }
-                                            });
-
-                                        })
-                                        $('#b' + id).on('click', function(e) {
-                                            swal({
-                                                    title: "Êtes-vous sûr?",
-                                                    text: "Vous ne pourrez pas récupérer cet adhérent et ses informations!",
-                                                    type: "warning",
-                                                    showCancelButton: true,
-                                                    confirmButtonColor: "#DD6B55",
-                                                    cancelButtonText: "Annuler",
-                                                    confirmButtonText: "Oui, supprimez-le!",
-                                                    closeOnConfirm: false
-                                                },
-                                                function() {
-                                                    $.ajax({
-                                                        url: "http://localhost:8081/deleteAdherent/" + id,
-                                                        type: "GET",
-                                                        Accept: "application/json",
-                                                        success: function(resultdata) {
-                                                            console.log(resultdata);
-                                                            // var elem = document.getElementById(object.id);
-                                                            // elem.parentNode.removeChild(elem);
-                                                            $('#o' + id).fadeOut();
-
-
-                                                        }
-                                                    });
-                                                    swal("Supprimé!", "Cet adhérent a été supprimé", "success");
-                                                });
-
-                                        })
-
-
-                                    });
-                                }
-
-
-
-                            });
-                        }
-                        if (this.value == "") {
-                            var x = document.getElementById("contentAdherent");
-                            $(x).empty();
-                            $.ajax({
-                                url: "http://localhost:8081/adherents",
-                                type: "GET",
-                                Accept: "application/json",
-                                success: function(resultdata) {
-                                    $.each(resultdata, function(k, v) {
-                                        var id = v.adhID;
-                                        var firstName = v.firstName;
-                                        var lastName = v.lastName;
-                                        var birthDate = v.birthDate;
-                                        var email = v.email;
-                                        var address = v.address;
-                                        var paid = v.paid;
-                                        var nationalIDcard = v.nationalIDcard;
-                                        var locOfficeID = v.locOfficeID;
-
-                                        var contentdiv = document.getElementById("contentAdherent");
-                                        var object = document.createElement("div");
-                                        object.id = 'o' + id;
-                                        console.log(object.id);
-                                        object.classList.add('object');
-                                        var datea = document.createElement("div");
-                                        datea.classList.add('date');
-                                        var circle = document.createElement("div");
-                                        circle.classList.add('circle');
-                                        var context = document.createElement("div");
-                                        context.classList.add('context');
-                                        if (paid == 1) {
-                                            var p = "Actif";
-                                        } else {
-                                            var p = "Non Actif";
-                                        }
-
-                                        function convert(str) {
-                                            var date = new Date(str),
-                                                mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-                                                day = ("0" + date.getDate()).slice(-2);
-                                            return [date.getFullYear(), mnth, day].join("-");
-                                        }
-                                        x = convert(birthDate);
-                                        if (p == "Actif") {
-                                            btnEdit = "<button id='a" + id + "' class='btn btn-link disabled'><i class='fa fa-check-square-o' aria-hidden='true'></i></button>";
-                                        } else if (p == "Non Actif") {
-                                            btnEdit = "<button id='a" + id + "' class='btn btn-link'><i class='fa fa-check-square-o' aria-hidden='true'></i></button>"
-                                        }
-
-                                        btnDelete = "<button id='b" + id + "' class='btn btn-link'><i class='fa fa fa-trash-o' aria-hidden='true'></i></button> "
-                                        btnHistory = "<a target='_blank' href='/checkAdherentHistory/"+id+"'><button id='c" + id + "' class='btn btn-link'><i class='fa fa-history' aria-hidden='true'></i> </button></a>"
-                                        datea.innerHTML = p;
-                                        context.innerHTML = "<b><h4><font color=#e33d31><p id='all_text'>" + firstName + " " + lastName + "</p></font></b></h4><br /><h5><div class='bandeau'><b>Carte d'identité nationale : </b>" + nationalIDcard + "<br /><b>Date de naissance : </b>" + x + "<br /><b>Adresse : </b>" + address + "<br /><b>Email : </b>" + email + "<br /><b>Souscrit au bureau local : </b>" + locOfficeID + "</br><center>" + btnEdit + btnDelete + btnHistory;
-                                        object.appendChild(datea);
-                                        object.appendChild(circle);
-                                        object.appendChild(context);
-                                        contentdiv.appendChild(object);
-                                        $('#a' + id).on('click', function(e) {
-                                            $.ajax({
-                                                url: "http://localhost:8081/changeStatus/" + id,
-                                                type: "GET",
-                                                Accept: "application/json",
-                                                success: function(resultdata) {
-                                                    $('#a' + id).addClass("disabled");
-                                                    console.log(resultdata);
-                                                    swal(
-                                                        'Terminé!',
-                                                        'Cet adhérent est actif maintenant!',
-                                                        'success'
-                                                    )
-                                                }
-                                            });
-
-                                        })
-                                        $('#b' + id).on('click', function(e) {
-                                            swal({
-                                                    title: "Êtes-vous sûr?",
-                                                    text: "Vous ne pourrez pas récupérer cet adhérent et ses informations!",
-                                                    type: "warning",
-                                                    showCancelButton: true,
-                                                    confirmButtonColor: "#DD6B55",
-                                                    cancelButtonText: "Annuler",
-                                                    confirmButtonText: "Oui, supprimez-le!",
-                                                    closeOnConfirm: false
-                                                },
-                                                function() {
-                                                    $.ajax({
-                                                        url: "http://localhost:8081/deleteAdherent/" + id,
-                                                        type: "GET",
-                                                        Accept: "application/json",
-                                                        success: function(resultdata) {
-                                                            console.log(resultdata);
-                                                            // var elem = document.getElementById(object.id);
-                                                            // elem.parentNode.removeChild(elem);
-                                                            $('#o' + id).fadeOut();
-
-
-                                                        }
-                                                    });
-                                                    swal("Supprimé!", "Cet adhérent a été supprimé", "success");
-                                                });
-
-                                        })
-
-
-                                    });
-                                }
-
-
-
-                            });
-                        }
-
-
-                    });
-
                     // Initialize collapse button
                     $(".button-collapse").sideNav();
                     // Initialize collapsible (uncomment the line below if you use the dropdown variation)

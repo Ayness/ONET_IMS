@@ -348,9 +348,9 @@
                     event.preventDefault();
                     var form = $('#addNEWS'); // hne t7ot id formulaire mte3ek
                     var btn = $('#btnAddNEWS'); // hne id button
-                    btn.text("Ajout d'article...");
                     console.log($('#addNEWS').serialize()+"&adminID=<%=user.adminID%>");
-                    if($("#title").val().length>0 && $("#content").val().length>0)
+                    if($("#title").val().length>0 && $("#content").val().length>0){
+                    btn.text("Ajout en cours...");
                     $.ajax({
                         type: "POST",
                         url: "http://localhost:8081/insertNews",
@@ -385,6 +385,7 @@
                             });
                         }
                     });
+                  }
                     else {
                       Materialize.toast('<span>Remplir les champs</span>', 5000);
 

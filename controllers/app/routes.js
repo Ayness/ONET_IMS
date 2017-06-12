@@ -142,11 +142,7 @@ module.exports = function(app, passport) {
             user: req.user // get the user out of session and pass to template
         });
     });
-    app.get('/locOfficeList', requireRole, isLoggedIn, function(req, res) {
-        res.render('../../views/locOfficeList.ejs', {
-            user: req.user // get the user out of session and pass to template
-        });
-    });
+
     app.get('/regOfficeList', requireRole, isLoggedIn, function(req, res) {
         res.render('../../views/regOfficeList.ejs', {
             user: req.user // get the user out of session and pass to template

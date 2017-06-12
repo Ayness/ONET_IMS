@@ -282,13 +282,13 @@
                                     <div>
                                         <!-- internship Section -->
                                         <form action="#" method="post" id="addEvent" class="form-style-5">
-                                            <input type="text" name="title" placeholder="Evénement" />
+                                            <input type="text" name="title" placeholder="Evénement" required/>
                                             <br>
-                                            <input type="time" name="time" placeholder="Heure">
+                                            <input type="time" name="time" placeholder="Heure" required>
                                             <br>
-                                            <input type="date" name="date" placeholder="Date" />
+                                            <input type="date" name="date" placeholder="Date" required/>
                                             <br>
-                                            <input type="text" name="address" placeholder="Adresse" />
+                                            <input type="text" name="address" placeholder="Adresse" required/>
                                             <br>
                                             <textarea name="about" placeholder="A propos"></textarea>
                                             <button type="submit" id="btnAddEvent">Ajouter l'événement </button>
@@ -366,14 +366,14 @@
                             console.log(obj);
                             if (obj.success == true) {
                                 Materialize.toast('<span>Evenement ajouté avec success</span>', 5000);
-                                btn.text("success").delay(2000).queue(function(next) {
+                                btn.text("Ajouté avec succés").delay(2000).queue(function(next) {
                                     $(this).text("Ajouter événement");
                                     next();
                                 });
 
                             } else {
                                 Materialize.toast('<span>Les informations sont incompletes</span>', 5000, "red");
-                                btn.text("failed").delay(2000).queue(function(next) {
+                                btn.text("Erreur").delay(2000).queue(function(next) {
                                     $(this).text("Ajouter événement");
                                     next();
                                 });

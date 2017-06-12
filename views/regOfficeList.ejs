@@ -341,7 +341,6 @@
                                 var address = v.address;
                                 var city = v.city;
                                 var natOfficeID = v.natOfficeID;
-
                                 var contentdiv = document.getElementById("contentAdherent");
                                 var object = document.createElement("div");
                                 object.id = 'o' + id;
@@ -355,7 +354,7 @@
                                 context.classList.add('context');
                                 btnList = "<a target='_blank' href='/locOfficeList/"+id+"/"+city+"/"+address+"'><button class='btn btn-link'><i class='fa fa-list-ul' aria-hidden='true'></i> </button></a>"
                                 datea.innerHTML = city;
-                                context.innerHTML = "<div class='bandeau'><b><h2><font color=#e33d31><h2><center>" + address + "</h2></font></b></h2><br /></br><center>" + btnList ;
+                                context.innerHTML = "<div class='bandeau'><b><h2><font color=#e33d31><h2><center>"+city + ", " + address + "</h2></font></b></h2><br /></br><center>" + btnList ;
                                 object.appendChild(datea);
                                 object.appendChild(circle);
                                 object.appendChild(context);
@@ -365,15 +364,16 @@
                     });
                     $("#fabAddOffice").on("click", (e)=>{
                       swal.withForm({
-                          title: 'Ajouter ub bureau regional',
+                          title: 'Ajouter un bureau regional',
                           text: 'Ajouter bureau regional',
                           showCancelButton: true,
                           confirmButtonColor: '#e33d31',
                           cancelButtonColor: '#23b912',
-                          confirmButtonText: 'Changer!',
+                          confirmButtonText: 'Ajouter!',
+                          cancelButtonText: 'Annuler!',
                           closeOnConfirm: true,
-                          formFields: [{ id: 'city',type: 'text',},
-                                       { id: 'address',type: 'text', }]
+                          formFields: [{ id: 'city',type: 'text', required: true},
+                                       { id: 'address',type: 'text', required: true }]
                       }, function(isConfirm) {
                           console.log(isConfirm);
                           var dataToSend = this.swalForm; //$.param();
@@ -388,13 +388,35 @@
                                   data: $.param(dataToSend),
                                   success: function(resultdata) {
                                       console.log(resultdata);
-                                      Materialize.toast('<span>Bureau ajouté avec success</span>', 5000, "red");
+                                      swal("Terminé", "Le bureau a été ajouté avec success!", "success");
+                                      var id = resultdata.regOfficeID;
+                                      var address = dataToSend.address;
+                                      var city = dataToSend.city;
+                                      var contentdiv = document.getElementById("contentAdherent");
+                                      var object = document.createElement("div");
+                                      object.id = 'o' + id;
+                                      console.log(object.id);
+                                      object.classList.add('object');
+                                      var datea = document.createElement("div");
+                                      datea.classList.add('date');
+                                      var circle = document.createElement("div");
+                                      circle.classList.add('circle');
+                                      var context = document.createElement("div");
+                                      context.classList.add('context');
+                                      btnList = "<a target='_blank' href='/locOfficeList/"+id+"/"+city+"/"+address+"'><button class='btn btn-link'><i class='fa fa-list-ul' aria-hidden='true'></i> </button></a>"
+                                      datea.innerHTML = city;
+                                      context.innerHTML = "<div class='bandeau'><b><h2><font color=#e33d31><h2><center>"+city + ", " + address + "</h2></font></b></h2><br /></br><center>" + btnList ;
+                                      object.appendChild(datea);
+                                      object.appendChild(circle);
+                                      object.appendChild(context);
+                                      contentdiv.appendChild(object);
+
                                   }
                               });
                             else
                               Materialize.toast('<span>Les informations sont incompletes</span>', 5000, "red");
                         }
-                        
+
 
                       })
                     })

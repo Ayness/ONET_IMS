@@ -375,18 +375,22 @@
                     formFields: [{
                       id: 'dateEvent',
                       type: 'date',
-                      value: dateEvent
+                      value: dateEvent,
+                      required: true
                     }, {
                       id: 'timeEvent',
                       type: 'time',
-                      value: timeEvent
+                      value: timeEvent,
+                      required: true
                     }, {
                       id: 'address',
-                      value: address
+                      value: address,
+                      required: true
                     }, {
                       id: 'about',
                       type: 'textarea',
-                      value: about
+                      value: about,
+                      required: true
                     }]
                   }, function(isConfirm) {
                     // do whatever you want with the form data
