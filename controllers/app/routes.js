@@ -11,26 +11,6 @@ module.exports = function(app, passport) {
         res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
         next();
     });
-    app.post('/adhProfile', function(req, res) {
-        console.log("req.files");
-        console.log(req);
-        if (!req.files)
-            return res.status(400).send('No files were uploaded.');
-
-        // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-        let sampleFile = req.files.cinfile;
-
-        // Use the mv() method to place the file somewhere on your server
-        sampleFile.mv('/', function(err) {
-            if (err)
-                return res.status(500).send(err);
-
-            res.send('File uploaded!');
-        });
-        res.render('../../views/adhProfile.ejs', {
-            user: req.user // get the user out of session and pass to template
-        });
-    });
     // =====================================
     // HOME PAGE (with login links) ========
     // =====================================

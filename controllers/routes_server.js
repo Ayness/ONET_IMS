@@ -38,7 +38,6 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
 app.use(session({ secret: 'adherentroutesecret',resave: true,saveUninitialized: true })); // adherent session secret
-app.use(session({ secret: 'adminroutesecret',resave: true,saveUninitialized: true })); // admin session secret
 //app.use(express.cookieSession({ secret: 'tobo!', maxAge: 360*5 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
